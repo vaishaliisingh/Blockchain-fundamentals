@@ -35,6 +35,7 @@ This project is a simple blockchain implementation in Python. It demonstrates ho
 ## Example Output
 
 When you run the code, you will see output similar to the following:
+  
   New block created: 
   {
   'index': 2, 
