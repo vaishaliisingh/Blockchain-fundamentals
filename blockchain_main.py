@@ -80,7 +80,7 @@ class Blockchain:
         while self.valid_proof(last_proof, proof) is False:
             proof += 1
             
-            # Add the mining reward here
+        # Add the mining reward here
         self.new_transaction(
             sender="0",  # System or network
             recipient="Miner1",  # Replace with the miner's address
@@ -100,6 +100,31 @@ class Blockchain:
         guess_hash = hashlib.sha256(guess).hexdigest()
         return guess_hash[:4] == "0000"
 
+    def is_chain_valid(self, chain):
+        """
+        Validates the entire blockchain.
+        :param chain: The blockchain to validate
+        :return: True if the blockchain is valid, False otherwise
+        """
+        last_block = chain[0]
+        current_index = 1
+
+        while current_index < len(chain):
+            block = chain[current_index]
+
+            # Check that the hash of the block is correct
+            if block['previous_hash'] != self.hash(last_block):
+                return False
+
+            # Check that the Proof of Work is correct
+            if not self.valid_proof(last_block['proof'], block['proof']):
+                return False
+
+            last_block = block
+            current_index += 1
+
+        return True
+
 # Create a new blockchain instance
 blockchain = Blockchain()
 
@@ -109,4 +134,8 @@ last_proof = blockchain.last_block['proof']
 proof = blockchain.proof_of_work(last_proof)
 block = blockchain.new_block(proof)
 
+# Validate the blockchain
+is_valid = blockchain.is_chain_valid(blockchain.chain)
+
 print(f"New block created: {block}")
+print(f"Is blockchain valid? {is_valid}")
