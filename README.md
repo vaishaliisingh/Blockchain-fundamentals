@@ -67,4 +67,4 @@ This project is licensed under the MIT License
 ## Acknowledgments
 
 1. This project is inspired by various blockchain tutorials and projects available online.
-2. pecial thanks to the community for their valuable insights and feedback.
+2. pecial thanks to the community for their valuable insights and feedbacks.
